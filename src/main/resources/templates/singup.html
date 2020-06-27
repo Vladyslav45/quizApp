@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <form th:action="@{/singup}" th:object="${user}" method="post">
+        <input type="text" name="name" maxlength="50" th:field="*{name}" required autofocus>
+        <input type="email" name="email" th:field="*{email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+        <input type="password" name="password" th:field="*{password}" minlength="6" required>
+        <button type="submit">ADD USER</button>
+    </form>
+</div>
+
+</body>
+</html>

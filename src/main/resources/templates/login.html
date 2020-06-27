@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:if="${message}" th:text="${message}"></div>
+
+<div th:if="${messagelogout}" th:text="${messagelogout}"></div>
+
+<div>
+    <form th:action="@{/login}" method="post">
+
+        <input type="email" name="email" placeholder="Enter email" required autofocus>
+
+        <input type="password" name="password" placeholder="Enter password" required>
+    </form>
+
+    <a th:href="@{/singup}">Sing Up</a>
+</div>
+
+</body>
+</html>
