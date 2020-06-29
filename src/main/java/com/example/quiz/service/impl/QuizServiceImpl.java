@@ -1,6 +1,7 @@
 package com.example.quiz.service.impl;
 
 import com.example.quiz.model.Subject;
+import com.example.quiz.model.ThemeSubject;
 import com.example.quiz.repository.AnswersRepository;
 import com.example.quiz.repository.SubjectRepository;
 import com.example.quiz.repository.ThemeSubjectsRepository;
@@ -25,5 +26,15 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public List<Subject> getAllSubjects() {
         return subjectRepository.findAll();
+    }
+
+    @Override
+    public List<ThemeSubject> getAllBySubjectName(String subjectName) {
+        return themeSubjectsRepository.findAllBySubject_NameSubject(subjectName);
+    }
+
+    @Override
+    public Subject getSubjectByName(String name) {
+        return subjectRepository.findByNameSubject(name);
     }
 }

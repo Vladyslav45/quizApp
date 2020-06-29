@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <form th:action="@{addThemeSubject}" th:object="${themeSubject}" method="post">
+        <input type="text" th:field="*{name}" maxlength="70" placeholder="Enter name theme subject" required autofocus><br>
+        <label>
+            Choose a subject
+            <select th:field="*{subject}">
+                <option value=""> --</option>
+                <option th:each="subject : ${subjectList}"
+                        th:value="${subject.id}"
+                        th:text="${subject.nameSubject}"></option>
+            </select>
+        </label>
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+</body>
+</html>

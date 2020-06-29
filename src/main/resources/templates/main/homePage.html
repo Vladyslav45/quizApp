@@ -14,7 +14,9 @@
     <div sec:authorize="hasAuthority('ADMIN')">
         <p>ADMIN</p>
         <p>Hello <span th:text="${userName}"></span></p>
-        <a th:href="@{add}">Add subject</a>
+        <a th:href="@{admin/addSubject}">Add subject</a>
+        <a th:href="@{admin/addThemeSubject}">Add theme subject</a>
+        <a th:href="@{admin/answers}">Menu choose add question</a>
     </div>
 
     <div sec:authorize="hasAuthority('USER')">
@@ -22,7 +24,7 @@
         <p>Hello <span th:text="${userName}"></span></p>
 
         <div th:each="subject : ${subjects}">
-            <p th:text="${subject.getNameSubject()}"></p>
+            <a th:text="${subject.getNameSubject()}" th:href="@{quiz/{nameSubject} (nameSubject = ${subject.nameSubject})}"></a>
         </div>
     </div>
 </div>

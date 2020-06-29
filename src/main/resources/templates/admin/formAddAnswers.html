@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <form th:action="@{addAnswers}" th:object="${answer}" method="post">
+        <input type="text" th:field="*{name}" maxlength="500" placeholder="Enter question" required autofocus><br>
+        <input type="text" th:field="*{correctAnswer}" maxlength="150" placeholder="Enter correct answer" required><br>
+        <input type="text" th:field="*{answers1}" maxlength="150" placeholder="Enter incorrect answer" required><br>
+        <input type="text" th:field="*{answer2}" maxlength="150" placeholder="Enter incorrect answer" required><br>
+        <input type="text" th:field="*{answer3}" maxlength="150" placeholder="Enter incorrect answer" required><br>
+        <label>
+            Choose a theme subject
+            <select th:field="*{themeSubject}" required>
+                <optgroup th:each="subject : ${subjectList}" th:label="${subject.nameSubject}">
+                    <option th:each="themeSubject : ${subject.themeSubjects}"
+                            th:value="${themeSubject.id}"
+                            th:text="${themeSubject.name}"></option>
+                </optgroup>
+            </select>
+        </label>
+
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+</body>
+</html>
