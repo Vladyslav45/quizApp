@@ -32,6 +32,9 @@ public class User {
     private String password;
 
     @Column
+    private int active;
+
+    @Column
     private String tokenForResetPassword;
 
     @OneToOne

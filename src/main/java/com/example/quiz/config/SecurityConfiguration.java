@@ -26,8 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select email, password from user where email = ?")
-                .authoritiesByUsernameQuery("")
+                .usersByUsernameQuery("select email, password, active from users where email = ?")
+                .authoritiesByUsernameQuery("select u.email, r.role_type from users u inner join user_role ur on (u.id = ur.user_id) inner join role r on (ur.role_id=r.id) where u.email=?")
                 .passwordEncoder(passwordEncoder);
     }
 
@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("email")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/home")
                 .failureUrl("/login?error=true")
                 .passwordParameter("password")
                 .and()

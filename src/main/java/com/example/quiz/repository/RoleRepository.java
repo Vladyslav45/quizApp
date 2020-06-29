@@ -1,9 +1,10 @@
 package com.example.quiz.repository;
 
-import com.example.quiz.model.QuizCategory;
+import com.example.quiz.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface QuizCategoryRepository extends JpaRepository<QuizCategory, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
+    Role findByRoleType(String roleType);
 }

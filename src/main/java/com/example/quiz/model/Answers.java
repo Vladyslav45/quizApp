@@ -11,11 +11,14 @@ import javax.persistence.*;
 @Setter
 @RequiredArgsConstructor
 @Table(name = "answers")
-public class QuizAnswers {
+public class Answers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column
+    private String name;
 
     @Column
     private String correctAnswer;
@@ -30,6 +33,6 @@ public class QuizAnswers {
     private String answer3;
 
     @ManyToOne
-    @JoinColumn(name = "quizCategory_id", nullable = false)
-    private QuizCategory quizCategory;
+    @JoinColumn(name = "themeSubject_id", nullable = false)
+    private ThemeSubject themeSubject;
 }

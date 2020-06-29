@@ -11,8 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "category")
-public class QuizCategory {
+@Table(name = "theme_subjects")
+public class ThemeSubject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +21,11 @@ public class QuizCategory {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "quizCategory")
-    private List<QuizAnswers> answers;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subject subject;
+
+    @OneToMany(mappedBy = "themeSubject")
+    private List<Answers> answers;
 
 }

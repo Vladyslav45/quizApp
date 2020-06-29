@@ -1,8 +1,10 @@
 package com.example.quiz.service;
 
+import com.example.quiz.model.Subject;
 import com.example.quiz.model.User;
 
+import java.util.List;
+
 public interface QuizService {
-    void save(User user);
-    User findByEmail(String email);
+    List<Subject> getAllSubjects();
 }
