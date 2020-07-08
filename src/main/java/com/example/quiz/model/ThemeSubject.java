@@ -26,6 +26,5 @@ public class ThemeSubject {
     private Subject subject;
 
     @OneToMany(mappedBy = "themeSubject")
-    private List<Answers> answers;
-
+    private List<Question> questions;
 }

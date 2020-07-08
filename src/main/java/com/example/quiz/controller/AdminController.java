@@ -56,7 +56,7 @@ public class AdminController {
             model.addAttribute("messageerror", "File isn't found");
             return "redirect:/answers";
         }
-        iAdminPanelService.addListAnswerForThemeSubject(multipartFile);
+        iAdminPanelService.addListAnswers(multipartFile);
         return "redirect:/home";
     }
 

@@ -1,20 +1,25 @@
 package com.example.quiz.service.impl;
 
 import com.example.quiz.model.Answers;
+import com.example.quiz.model.Question;
 import com.example.quiz.model.Subject;
 import com.example.quiz.model.ThemeSubject;
 import com.example.quiz.repository.AnswersRepository;
+import com.example.quiz.repository.QuestionRepository;
 import com.example.quiz.repository.SubjectRepository;
 import com.example.quiz.repository.ThemeSubjectsRepository;
 import com.example.quiz.service.IAdminPanelService;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Iterator;
 
 
 @Service
@@ -28,6 +33,9 @@ public class AdminPanelServiceImpl implements IAdminPanelService {
 
     @Autowired
     private AnswersRepository answersRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @Override
     public void addSubject(Subject subject) {
@@ -45,31 +53,62 @@ public class AdminPanelServiceImpl implements IAdminPanelService {
     }
 
     @Override
-    public void addListAnswerForThemeSubject(MultipartFile multipartFile) {
-        try {
-            byte[] bytes = multipartFile.getBytes();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(bytes)));
-            String line;
+    public void addListAnswers(MultipartFile multipartFile) {
 
-            while ((line = bufferedReader.readLine()) != null){
-                String[] strings = line.split(";");
-                Answers answers = make(strings);
+        try {
+            Workbook workbook = new XSSFWorkbook(multipartFile.getInputStream());
+            Sheet sheet = workbook.getSheetAt(0);
+
+            Iterator<Row> rowIterator = sheet.iterator();
+
+            int row = 0;
+            while(rowIterator.hasNext()){
+                Row currentRow = rowIterator.next();
+
+                if (row == 0){
+                    row++;
+                    continue;
+                }
+
+                Iterator<Cell> cellIterator = currentRow.iterator();
+                Answers answers = new Answers();
+                Question question = new Question();
+
+                int cellIdx = 0;
+                while (cellIterator.hasNext()){
+                    Cell currentCell = cellIterator.next();
+
+
+                    switch (cellIdx){
+                        case 0:
+                            question.setNameQuestion(currentCell.getStringCellValue());
+                            break;
+                        case 1:
+                            answers.setCorrectAnswer(currentCell.getStringCellValue());
+                            break;
+                        case 2:
+                            answers.setAnswers1(currentCell.getStringCellValue());
+                            break;
+                        case 3:
+                            answers.setAnswer2(currentCell.getStringCellValue());
+                            break;
+                        case 4:
+                            answers.setAnswer3(currentCell.getStringCellValue());
+                            break;
+                        case 5:
+                            question.setThemeSubject(themeSubjectsRepository.findByName(currentCell.getStringCellValue()));
+                            break;
+                    }
+                    cellIdx++;
+                    answers.setQuestion(question);
+                }
+                questionRepository.save(question);
                 answersRepository.save(answers);
             }
+            workbook.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private Answers make(String[] strings){
-        Answers answers = new Answers();
-        answers.setName(strings[0].trim());
-        answers.setCorrectAnswer(strings[1].trim());
-        answers.setAnswers1(strings[2].trim());
-        answers.setAnswer2(strings[3].trim());
-        answers.setAnswer3(strings[4].trim());
-        answers.setThemeSubject(themeSubjectsRepository.findByName(strings[5].trim()));
-        return answers;
     }
 
 //    @Override

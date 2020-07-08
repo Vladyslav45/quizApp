@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <span class="text-danger align-middle" th:if="${messageError}" th:text="${messageError}"></span><br>
+    <span class="text-danger align-middle" th:if="${successMessage}" th:text="${successMessage}"></span><br>
+    <form th:action="@{/forgot}" method="post">
+        <input type="email" name="userEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Podaj email" required autofocus><br>
+        <button class="check" type="submit" value="Check">Check</button><br>
+    </form>
+</div>
+
+</body>
+</html>

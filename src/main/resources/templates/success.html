@@ -6,10 +6,8 @@
     <title>Title</title>
 </head>
 <body>
-
-<div th:each="theme : ${themeSubjects}">
-    <a th:text="${theme.name}" th:href="@{testing/{theme} (theme = ${theme.name})}"></a>
-</div>
-
+<div th:text="${messageAccess}"></div>
+<div th:text="${mess}"></div>
+<button th:href="@{/login}" >Go to login page</button>
 </body>
 </html>

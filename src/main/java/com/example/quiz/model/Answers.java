@@ -18,9 +18,6 @@ public class Answers {
     private Long id;
 
     @Column
-    private String name;
-
-    @Column
     private String correctAnswer;
 
     @Column
@@ -32,7 +29,17 @@ public class Answers {
     @Column
     private String answer3;
 
-    @ManyToOne
-    @JoinColumn(name = "themeSubject_id", nullable = false)
-    private ThemeSubject themeSubject;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
+    private Question question;
+
+//    @Override
+//    public String toString() {
+//        return "Answers{" +
+//                "correctAnswer='" + correctAnswer + '\'' +
+//                ", answers1='" + answers1 + '\'' +
+//                ", answer2='" + answer2 + '\'' +
+//                ", answer3='" + answer3 + '\'' +
+//                '}';
+//    }
 }

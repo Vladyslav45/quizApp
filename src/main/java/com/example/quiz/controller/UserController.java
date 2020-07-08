@@ -1,5 +1,6 @@
 package com.example.quiz.controller;
 
+import com.example.quiz.model.ConfirmedTokenActivetedEmail;
 import com.example.quiz.model.Subject;
 import com.example.quiz.model.User;
 import com.example.quiz.service.QuizService;
@@ -10,12 +11,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -48,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping(value = "singup")
-    public String registeredUser(@ModelAttribute User user, Model model){
+    public String registeredUser(@ModelAttribute User user, HttpServletRequest request, Model model){
         User createUser = userService.findByEmail(user.getEmail());
 
         if (createUser != null){
@@ -56,6 +58,7 @@ public class UserController {
         }
 
         userService.save(user);
+        userService.ConfirmedAccount(user, request);
         return "redirect:/login";
     }
 
@@ -69,5 +72,57 @@ public class UserController {
         model.addAttribute("userName", user.getName());
         model.addAttribute("subjects", subjects);
         return "main/homePage";
+    }
+
+    @RequestMapping(value = "/confirmActivated", method = {RequestMethod.GET, RequestMethod.POST})
+    public String confirmReset(@RequestParam("token") String confirmToken, Model model){
+        ConfirmedTokenActivetedEmail confirmedTokenActivetedEmail = userService.findByConfirmToken(confirmToken);
+        if (confirmedTokenActivetedEmail != null){
+            userService.updateActive(confirmedTokenActivetedEmail);
+            model.addAttribute("messageAccess", "Congratulation!");
+            return "success";
+        } else {
+            model.addAttribute("messageError", "The link is invalid or broken");
+            return "error";
+        }
+    }
+
+    @GetMapping(value = "/forgot")
+    public String checkEmail(){
+        return "emailCheckForm";
+    }
+
+    @PostMapping(value = "/forgot")
+    public String check(@RequestParam String userEmail, HttpServletRequest request, Model model){
+        User user = userService.findByEmail(userEmail);
+        if (user == null){
+            model.addAttribute("messageError", "Not found email");
+        } else {
+            String token = UUID.randomUUID().toString();
+            userService.updateTokenInUserForResetPassword(user, token);
+            userService.sendEmailWithResetToken(userEmail, token, request);
+            model.addAttribute("successMessage", "Message send to " + userEmail);
+        }
+        return "emailCheckForm";
+    }
+
+
+    @GetMapping(value = "/reset")
+    public String resetPasswordForm(@RequestParam("token") String token, Model model){
+        User user = userService.findByResetToken(token);
+        if (user != null){
+            model.addAttribute("mess", "congre");
+            model.addAttribute("resetToken", token);
+            return "changePasswordForm";
+        } else {
+            model.addAttribute("me", "The link is invalid");
+            return "error";
+        }
+    }
+
+    @PostMapping(value = "/reset")
+    public String resetPassword(@RequestParam String password, @RequestParam("token") String token){
+        userService.changePassword(password, userService.findByResetToken(token));
+        return "redirect:/login";
     }
 }

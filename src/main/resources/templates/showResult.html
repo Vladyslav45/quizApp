@@ -7,8 +7,8 @@
 </head>
 <body>
 
-<div th:each="theme : ${themeSubjects}">
-    <a th:text="${theme.name}" th:href="@{testing/{theme} (theme = ${theme.name})}"></a>
+<div>
+    <p th:text="'You results is: ' + ${result}"></p>
 </div>
 
 </body>

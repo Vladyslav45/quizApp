@@ -6,10 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-
-<div th:each="theme : ${themeSubjects}">
-    <a th:text="${theme.name}" th:href="@{testing/{theme} (theme = ${theme.name})}"></a>
-</div>
-
+<span th:text="${messageError}"></span>
+<span th:text="${me}"></span>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <body>
 
 <div>
-    <form th:action="@{/add}" th:object="${subject}" method="post">
+    <form th:action="@{/addSubject}" th:object="${subject}" method="post">
         <input type="text" name="nameSubject" maxlength="90" th:field="*{nameSubject}" placeholder="Enter name subject" required autofocus>
         <button type="submit">Add subject</button>
     </form>
