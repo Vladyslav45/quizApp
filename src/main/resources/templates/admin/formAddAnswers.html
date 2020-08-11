@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/addAnswersStyle.css" th:href="@{/css/addAnswersStyle.css}">
 </head>
 <body>
 
 <div>
-    <form th:action="@{addAnswers}" th:object="${answer}" method="post">
-        <input type="text" th:field="*{name}" maxlength="500" placeholder="Enter question" required autofocus><br>
-        <input type="text" th:field="*{correctAnswer}" maxlength="150" placeholder="Enter correct answer" required><br>
-        <input type="text" th:field="*{answers1}" maxlength="150" placeholder="Enter incorrect answer" required><br>
-        <input type="text" th:field="*{answer2}" maxlength="150" placeholder="Enter incorrect answer" required><br>
-        <input type="text" th:field="*{answer3}" maxlength="150" placeholder="Enter incorrect answer" required><br>
+    <form th:action="@{addAnswers}" th:object="${question}" method="post">
+        <input type="text" th:field="*{nameQuestion}" maxlength="500" placeholder="Enter question" required autofocus><br>
+        <input type="text" th:field="*{answer.correctAnswer}" maxlength="150" placeholder="Enter correct answer" required><br>
+        <input type="text" th:field="*{answer.inCorrectAnswer1}" maxlength="150" placeholder="Enter incorrect answer" required><br>
+        <input type="text" th:field="*{answer.inCorrectAnswer2}" maxlength="150" placeholder="Enter incorrect answer" required><br>
+        <input type="text" th:field="*{answer.inCorrectAnswer3}" maxlength="150" placeholder="Enter incorrect answer" required><br>
         <label>
             Choose a theme subject
             <select th:field="*{themeSubject}" required>

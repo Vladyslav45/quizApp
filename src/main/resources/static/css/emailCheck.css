@@ -1,0 +1,53 @@
+html, body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 100%;
+    overflow-x: hidden;
+    background: url(../img/bg.jpg) no-repeat 0px 0px;
+    background-size:cover;
+}
+.container {
+    width: 30%;
+    margin:5em auto;
+    background:rgba(171, 119, 157, 0.27);
+    padding: 42px 35px;
+}
+
+.container .alert{
+    text-align: center;
+}
+ .error{
+    color: red;
+     font-weight: bold;
+}
+
+ .success{
+     color: green;
+     font-weight: bold;
+}
+
+input.check{
+    width: 100%;
+    padding: 15px 0px 15px 15px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    color: #fff;
+    margin: 14px 0px;
+    background: none;
+}
+
+button{
+    margin-left: 40%;
+}
+
+@media(max-width:940px)
+{
+    .container {width: 50%;}
+}
+
+@media(max-width:550px)
+{
+    .container {width: 90%; padding: 5%;}
+    input.check {width: 90%; padding: 15px 4%;}
+}

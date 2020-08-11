@@ -1,10 +1,9 @@
 package com.example.quiz.service.impl;
 
-import com.example.quiz.model.Answers;
+import com.example.quiz.model.Answer;
 import com.example.quiz.model.Question;
 import com.example.quiz.model.Subject;
 import com.example.quiz.model.ThemeSubject;
-import com.example.quiz.repository.AnswersRepository;
 import com.example.quiz.repository.QuestionRepository;
 import com.example.quiz.repository.SubjectRepository;
 import com.example.quiz.repository.ThemeSubjectsRepository;
@@ -32,9 +31,6 @@ public class AdminPanelServiceImpl implements IAdminPanelService {
     private ThemeSubjectsRepository themeSubjectsRepository;
 
     @Autowired
-    private AnswersRepository answersRepository;
-
-    @Autowired
     private QuestionRepository questionRepository;
 
     @Override
@@ -48,8 +44,8 @@ public class AdminPanelServiceImpl implements IAdminPanelService {
     }
 
     @Override
-    public void addAnswersForTHemeSubject(Answers answers) {
-        answersRepository.save(answers);
+    public void addAnswersForTHemeSubject(Question question) {
+        questionRepository.save(question);
     }
 
     @Override
@@ -71,8 +67,8 @@ public class AdminPanelServiceImpl implements IAdminPanelService {
                 }
 
                 Iterator<Cell> cellIterator = currentRow.iterator();
-                Answers answers = new Answers();
                 Question question = new Question();
+                Answer answer = new Answer();
 
                 int cellIdx = 0;
                 while (cellIterator.hasNext()){
@@ -84,26 +80,25 @@ public class AdminPanelServiceImpl implements IAdminPanelService {
                             question.setNameQuestion(currentCell.getStringCellValue());
                             break;
                         case 1:
-                            answers.setCorrectAnswer(currentCell.getStringCellValue());
+                            answer.setCorrectAnswer(currentCell.getStringCellValue());
                             break;
                         case 2:
-                            answers.setAnswers1(currentCell.getStringCellValue());
+                            answer.setInCorrectAnswer1(currentCell.getStringCellValue());
                             break;
                         case 3:
-                            answers.setAnswer2(currentCell.getStringCellValue());
+                            answer.setInCorrectAnswer2(currentCell.getStringCellValue());
                             break;
                         case 4:
-                            answers.setAnswer3(currentCell.getStringCellValue());
+                            answer.setInCorrectAnswer3(currentCell.getStringCellValue());
                             break;
                         case 5:
                             question.setThemeSubject(themeSubjectsRepository.findByName(currentCell.getStringCellValue()));
                             break;
                     }
                     cellIdx++;
-                    answers.setQuestion(question);
                 }
+                question.setAnswer(answer);
                 questionRepository.save(question);
-                answersRepository.save(answers);
             }
             workbook.close();
         } catch (IOException e) {

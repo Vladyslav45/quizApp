@@ -4,7 +4,7 @@ import com.example.quiz.model.ConfirmedTokenActivetedEmail;
 import com.example.quiz.model.User;
 
 import javax.servlet.http.HttpServletRequest;
-public interface UserService {
+public interface IUserService {
     void save(User user);
     User findByEmail(String email);
     User findByResetToken(String token);

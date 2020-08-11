@@ -34,14 +34,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/login", "/singup","/forgot", "/reset", "/register", "/confirmActivated").permitAll()
+                .antMatchers("/",
+                        "/singup","/forgot", "/reset", "/register", "/confirmActivated").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .usernameParameter("email")
                 .defaultSuccessUrl("/home")
-                .failureUrl("/login?error=true")
+                .failureUrl("/?error=true")
                 .passwordParameter("password")
                 .and()
                 .logout()
@@ -59,6 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/css/**");
         web.ignoring().antMatchers("/js/**");
+        web.ignoring().antMatchers("/img/**");
     }
 
     @Bean

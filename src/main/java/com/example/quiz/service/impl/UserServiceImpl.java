@@ -7,16 +7,15 @@ import com.example.quiz.model.User;
 import com.example.quiz.repository.ConfirmedTokenRepository;
 import com.example.quiz.repository.RoleRepository;
 import com.example.quiz.repository.UserRepository;
-import com.example.quiz.service.UserService;
+import com.example.quiz.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;

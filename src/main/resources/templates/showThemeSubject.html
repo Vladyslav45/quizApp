@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/showThemeSubjectStyle.css" th:href="@{/css/showThemeSubjectStyle.css}">
 </head>
 <body>
 
 <div th:each="theme : ${themeSubjects}">
     <a th:text="${theme.name}" th:href="@{testing/{theme} (theme = ${theme.name})}"></a>
 </div>
-
 </body>
 </html>

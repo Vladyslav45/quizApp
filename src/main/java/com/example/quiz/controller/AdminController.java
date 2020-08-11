@@ -1,10 +1,10 @@
 package com.example.quiz.controller;
 
-import com.example.quiz.model.Answers;
+import com.example.quiz.model.Question;
 import com.example.quiz.model.Subject;
 import com.example.quiz.model.ThemeSubject;
 import com.example.quiz.service.IAdminPanelService;
-import com.example.quiz.service.QuizService;
+import com.example.quiz.service.IQuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ public class AdminController {
     private IAdminPanelService iAdminPanelService;
 
     @Autowired
-    private QuizService quizService;
+    private IQuizService IQuizService;
 
     @GetMapping(value = "/addSubject")
     public String formAddSubject(Model model){
@@ -29,9 +29,15 @@ public class AdminController {
         return "admin/formAddSubject";
     }
 
+    @PostMapping(value = "/addSubject")
+    public String addSubject(@ModelAttribute Subject subject){
+        iAdminPanelService.addSubject(subject);
+        return "redirect:/home";
+    }
+
     @GetMapping(value = "/addThemeSubject")
     public String formToAddThemeSubject(Model model){
-        List<Subject> subjects = quizService.getAllSubjects();
+        List<Subject> subjects = IQuizService.getAllSubjects();
 
         model.addAttribute("subjectList", subjects);
         model.addAttribute("themeSubject", new ThemeSubject());
@@ -45,8 +51,8 @@ public class AdminController {
 
     @GetMapping(value = "/addAnswers")
     public String formAddAnswers(Model model){
-        model.addAttribute("subjectList", quizService.getAllSubjects());
-        model.addAttribute("answer", new Answers());
+        model.addAttribute("subjectList", IQuizService.getAllSubjects());
+        model.addAttribute("question", new Question());
         return "admin/formAddAnswers";
     }
 
@@ -60,12 +66,6 @@ public class AdminController {
         return "redirect:/home";
     }
 
-    @PostMapping(value = "/addSubject")
-    public String addSubject(@ModelAttribute Subject subject){
-        iAdminPanelService.addSubject(subject);
-        return "redirect:/home";
-    }
-
     @PostMapping(value = "/addThemeSubject")
     public String addThemeSubject(@ModelAttribute ThemeSubject themeSubject){
         iAdminPanelService.addThemeSubject(themeSubject);
@@ -73,8 +73,8 @@ public class AdminController {
     }
 
     @PostMapping(value = "/addAnswers")
-    public String addAnswers(@ModelAttribute Answers answers){
-        iAdminPanelService.addAnswersForTHemeSubject(answers);
+    public String addAnswers(@ModelAttribute Question question){
+        iAdminPanelService.addAnswersForTHemeSubject(question);
         return "redirect:/home";
     }
 

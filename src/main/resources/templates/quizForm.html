@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/quizFormStyle.css" th:href="@{/css/quizFormStyle.css}">
+</head>
+<body>
+<div id="container">
+    <h1>Quiz Website Using JavaScript</h1>
+    <br/>
+    <div id="quiz"></div>
+    <div class="button" id="next"><a>Next</a></div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+<script th:inline="javascript">
+    (function () {
+        let quesCounter = 0;
+        let arrayQuestions = [[${questionList}]];
+        let selectOptions = [], shuffleArray = [], answer = [];
+        let quizSpace = $('#quiz');
+
+        nextQuestion();
+
+        $('#next').click(function () {
+            chooseOption();
+            if (selectOptions[quesCounter] === null) {
+                alert('Please select an option !');
+            } else {
+                quesCounter++;
+                nextQuestion();
+            }
+        });
+
+        function createElement(index) {
+            let element = $('<div>', {id: 'question'});
+            let header = $('<h2>Question No. ' + (index + 1) + ' :</h2>');
+            element.append(header);
+
+            let question = $('<p>').append(arrayQuestions[index].nameQuestion);
+            element.append(question);
+
+            let radio = radioButtons(index);
+            element.append(radio);
+
+            return element;
+        }
+
+        function radioButtons(index) {
+            let arrayQ = [arrayQuestions[index].answer.correctAnswer, arrayQuestions[index].answer.inCorrectAnswer1, arrayQuestions[index].answer.inCorrectAnswer2, arrayQuestions[index].answer.inCorrectAnswer3];
+            shuffleArray =  _.shuffle(arrayQ);
+
+            let radioItems = $('<ul>');
+            let item;
+            let input;
+            for (let i = 0; i < shuffleArray.length; i++){
+                item = $('<li>');
+                input = '<input type="radio" name="answer" value=' + i + ' />';
+                input += shuffleArray[i];
+                item.append(input);
+                radioItems.append(item);
+            }
+            return radioItems;
+        }
+
+        function chooseOption() {
+            selectOptions[quesCounter] = +$('input[name="answer"]:checked').val();
+            answer[quesCounter] = shuffleArray[selectOptions[quesCounter]]
+        }
+
+        function nextQuestion() {
+            quizSpace.fadeOut(function () {
+                $('#question').remove();
+                if (quesCounter < arrayQuestions.length) {
+                    let nextQuestion = createElement(quesCounter);
+                    quizSpace.append(nextQuestion).fadeIn();
+                    if (!(isNaN(selectOptions[quesCounter]))) {
+                        $('input[value=' + selectOptions[quesCounter] + ']').prop('checked', true);
+                    }
+                    if (quesCounter === 0) {
+                        $('#next').show();
+                    }
+                } else {
+                    let scoreRslt = displayResult();
+                    quizSpace.append(scoreRslt).fadeIn();
+                    $('#prev').hide();
+                }
+            });
+        }
+
+        function displayResult() {
+            let score = $('<p>', {id: 'question'});
+            let correct = 0;
+            for (let i = 0; i < selectOptions.length; i++) {
+                if (answer[i] === arrayQuestions[i].answer.correctAnswer) {
+                    correct++;
+                }
+            }
+            score.append('You scored ' + correct + ' out of ' + arrayQuestions.length);
+            return score;
+        }
+    })();
+</script>
+</body>
+</html>

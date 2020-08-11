@@ -3,8 +3,8 @@ package com.example.quiz.controller;
 import com.example.quiz.model.ConfirmedTokenActivetedEmail;
 import com.example.quiz.model.Subject;
 import com.example.quiz.model.User;
-import com.example.quiz.service.QuizService;
-import com.example.quiz.service.UserService;
+import com.example.quiz.service.IQuizService;
+import com.example.quiz.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -14,21 +14,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Controller
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
-    private QuizService quizService;
+    private IQuizService IQuizService;
 
-    @GetMapping(value = {"/","login"})
+    @GetMapping(value = "/")
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout,
                         Model model){
@@ -59,7 +57,7 @@ public class UserController {
 
         userService.save(user);
         userService.ConfirmedAccount(user, request);
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @GetMapping(value = "/home")
@@ -67,7 +65,7 @@ public class UserController {
     public String homePage(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByEmail(authentication.getName());
-        List<Subject> subjects = quizService.getAllSubjects();
+        List<Subject> subjects = IQuizService.getAllSubjects();
 
         model.addAttribute("userName", user.getName());
         model.addAttribute("subjects", subjects);
