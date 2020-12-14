@@ -56,7 +56,8 @@ public class UserController {
         }
 
         userService.save(user);
-        userService.ConfirmedAccount(user, request);
+        String appUrl = "test " + request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        userService.ConfirmedAccount(user, appUrl);
         return "redirect:/";
     }
 

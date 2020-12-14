@@ -61,10 +61,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void ConfirmedAccount(User user, HttpServletRequest request) {
+    public void ConfirmedAccount(User user, String url) {
         ConfirmedTokenActivetedEmail confirmedToken = new ConfirmedTokenActivetedEmail(user);
         confirmedTokenRepository.save(confirmedToken);
-        emailSender.sendConfirmedToken(user.getEmail(), confirmedToken.getConfirmToken(), request);
+        emailSender.sendConfirmedToken(user.getEmail(), confirmedToken.getConfirmToken(), url);
     }
 
     @Override

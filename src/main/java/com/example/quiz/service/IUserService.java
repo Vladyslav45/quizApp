@@ -9,7 +9,7 @@ public interface IUserService {
     User findByEmail(String email);
     User findByResetToken(String token);
     void changePassword(String pass, User user);
-    void ConfirmedAccount(User user, HttpServletRequest request);
+    void ConfirmedAccount(User user, String url);
     ConfirmedTokenActivetedEmail findByConfirmToken(String confirmToken);
     void updateActive(ConfirmedTokenActivetedEmail confirmedTokenActivetedEmail);
     void updateTokenInUserForResetPassword(User user, String token);
