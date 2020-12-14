@@ -19,22 +19,22 @@ public class EmailSender {
     @Value("${spring.mail.username}")
     private String email;
 
-    public void sendConfirmedToken(String email, String token, HttpServletRequest request){
+    public void sendConfirmedToken(String toEmail, String token, HttpServletRequest request){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setSubject("Confirm account");
         simpleMailMessage.setFrom(email);
-        simpleMailMessage.setTo(email);
+        simpleMailMessage.setTo(toEmail);
         simpleMailMessage.setText("test " + request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() +
                 "/confirmActivated?token=" + token);
 
         javaMailSender.send(simpleMailMessage);
     }
 
-    public void sendResetPassword(String email, String token, HttpServletRequest request){
+    public void sendResetPassword(String toEmail, String token, HttpServletRequest request){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setSubject("Reset password");
         simpleMailMessage.setFrom(email);
-        simpleMailMessage.setTo(email);
+        simpleMailMessage.setTo(toEmail);
         simpleMailMessage.setText("reset password " + request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() +
                 "/reset?token=" + token);
 
