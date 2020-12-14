@@ -26,13 +26,13 @@ public class UserController {
     @Autowired
     private IQuizService IQuizService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/login")
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout,
                         Model model){
 
         if (error != null){
-            model.addAttribute("message", "Invalid email or password");
+            model.addAttribute("messageErrorLog", "Invalid email or password");
         }
         if (logout != null){
             model.addAttribute("messagelogout", "You've been logged out successfully");
@@ -40,14 +40,14 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping(value = "singup")
+    @GetMapping(value = "/singup")
     public String getFormSignUp(Model model){
         User user = new User();
         model.addAttribute("user", user);
         return "singup";
     }
 
-    @PostMapping(value = "singup")
+    @PostMapping(value = "/singup")
     public String registeredUser(@ModelAttribute User user, HttpServletRequest request, Model model){
         User createUser = userService.findByEmail(user.getEmail());
 
@@ -60,7 +60,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/home")
+    @GetMapping(value = "/")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public String homePage(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

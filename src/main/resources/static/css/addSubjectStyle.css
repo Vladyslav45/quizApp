@@ -5,3 +5,48 @@ html, body{
     background: url(../img/bg.jpg) no-repeat 0px 0px;
     background-size:cover;
 }
+
+.container{
+    width: 30%;
+    margin:5em auto;
+    text-align: center;
+    background:rgba(171, 119, 157, 0.27);
+    padding: 42px 35px;
+}
+
+.container form input{
+    width: 100%;
+    padding: 15px 0px 15px 15px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    color: #fff;
+    margin: 14px 0px;
+    background: none;
+}
+
+.container form button{
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #f0bcb4;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.container form button:hover{
+    background-color: #f0bcb4
+}
+
+.container form button:active{
+    background-color: #f0bcb4;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

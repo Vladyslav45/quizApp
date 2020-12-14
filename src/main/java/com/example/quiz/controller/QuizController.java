@@ -26,7 +26,7 @@ public class QuizController {
         return "showThemeSubject";
     }
 
-    @GetMapping(value = "/testing/{theme}")
+    @GetMapping(value = "/test/{theme}")
     public String showTest(@PathVariable String theme, Model model) {
         List<Question> questions = IQuizService.getRandomThreeTestsByThemeSubject(theme);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -36,6 +36,7 @@ public class QuizController {
             e.printStackTrace();
         }
         model.addAttribute("questionList", questions);
+        model.addAttribute("nameTheme", theme);
         return "quizForm";
     }
 }

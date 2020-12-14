@@ -15,11 +15,9 @@
             <input type="text" class="ggg" th:field="*{name}" name="name" placeholder="NAME" required="">
             <input type="email" class="ggg" th:field="*{email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="email" placeholder="E-MAIL" required="">
             <input type="password" class="ggg" th:field="*{password}" name="password" placeholder="PASSWORD" required="">
-
-            <div class="clearfix"></div>
             <input type="submit" value="submit" name="register">
         </form>
-        <p>Already Registered. <a th:href="@{/}">Login</a></p>
+        <p>Already Registered. <a th:href="@{/login}">Login</a></p>
     </div>
 </div>
 </body>

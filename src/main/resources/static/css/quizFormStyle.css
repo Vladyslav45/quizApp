@@ -8,6 +8,20 @@ html, body{
 h1 {
     text-align: center;
 }
+
+
+#result #des{
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+}
+
+#result #correct{
+    font-weight: bold;
+    color: green;
+    font-size: 18px;
+}
+
 .button 
 {
     

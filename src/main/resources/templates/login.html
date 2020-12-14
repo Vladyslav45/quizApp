@@ -15,9 +15,9 @@
     <link type="text/css" rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}">
 </head>
 <body>
-<div th:if="${message}" th:text="${message}"></div>
+<div id="error-log" th:if="${messageErrorLog}" th:text="${messageErrorLog}"></div>
 
-<div th:if="${messagelogout}" th:text="${messagelogout}"></div>
+<div id="success-logout" th:if="${messagelogout}" th:text="${messagelogout}"></div>
 
 <div>
     <div class="container">
@@ -25,7 +25,6 @@
         <form method="post">
             <input type="email" class="ggg" name="email" placeholder="E-MAIL" required autofocus>
             <input type="password" class="ggg" name="password" placeholder="PASSWORD" required>
-            <div class="clearfix"></div>
             <input type="submit" value="Sign In" name="login">
         </form>
         <p>Don't Have an Account ?<a th:href="@{/singup}">Create an account</a></p>

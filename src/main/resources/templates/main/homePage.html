@@ -6,27 +6,29 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/static/css/home.css" th:href="@{/css/home.css}">
+    <link rel="stylesheet" type="text/css" href="/static/css/navAdminStyle.css" th:href="@{/css/navAdminStyle.css}">
 </head>
 <body>
 
 <sec:authentication var="principal" property="principal"/>
 
-<div sec:authorize="isAuthenticated()">
-    <div sec:authorize="hasAuthority('ADMIN')">
-        <p>ADMIN</p>
-        <p>Hello <span th:text="${userName}"></span></p>
-        <a th:href="@{admin/addSubject}">Add subject</a>
-        <a th:href="@{admin/addThemeSubject}">Add theme subject</a>
-        <a th:href="@{admin/answers}">Menu choose add question</a>
-        <a th:href="@{/logout}">Log out</a>
+<div class="container">
+    <div class="admin" sec:authorize="hasAuthority('ADMIN')">
+        <th:block th:replace="navbar/navbarForAdminPage :: navAdmin" />
+        <div class="admin-name">
+            <h1 th:text="${'Hello, ' + userName}"></h1>
+        </div>
     </div>
 
-    <div sec:authorize="hasAuthority('USER')">
-        <p>USER</p>
-        <p>Hello <span th:text="${userName}"></span></p>
-        <a th:href="@{/logout}">Log out</a>
-        <div th:each="subject : ${subjects}">
-            <a th:text="${subject.nameSubject}" th:href="@{/{nameSubject} (nameSubject = ${subject.nameSubject})}"></a>
+    <div class="user" sec:authorize="hasAuthority('USER')">
+        <div class="info">
+            <h1 th:text="'Hello, ' + ${userName}"></h1>
+            <a id="logout" th:href="@{/logout}">Log out</a><br>
+        </div>
+        <div id="board">
+            <div id="subjects" th:each="subject : ${subjects}">
+                <a id="subject"  th:text="${subject.nameSubject}" th:href="@{/{nameSubject} (nameSubject = ${subject.nameSubject})}"></a>
+            </div>
         </div>
     </div>
 </div>

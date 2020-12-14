@@ -32,7 +32,7 @@ public class AdminController {
     @PostMapping(value = "/addSubject")
     public String addSubject(@ModelAttribute Subject subject){
         iAdminPanelService.addSubject(subject);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @GetMapping(value = "/addThemeSubject")
@@ -63,19 +63,19 @@ public class AdminController {
             return "redirect:/answers";
         }
         iAdminPanelService.addListAnswers(multipartFile);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @PostMapping(value = "/addThemeSubject")
     public String addThemeSubject(@ModelAttribute ThemeSubject themeSubject){
         iAdminPanelService.addThemeSubject(themeSubject);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @PostMapping(value = "/addAnswers")
     public String addAnswers(@ModelAttribute Question question){
         iAdminPanelService.addAnswersForTHemeSubject(question);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 //    @PostMapping(value = "/addFromFile")

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<th:block th:fragment="navAdmin">
+    <ul class="menu">
+        <li><a th:href="@{/}">Main page</a></li>
+        <li>
+            <a>Operations</a>
+            <ul class="submenu">
+                <li><a th:href="@{admin/addSubject}">Add subject</a></li>
+                <li><a th:href="@{admin/addThemeSubject}">Add theme subject</a></li>
+                <li><a th:href="@{admin/answers}">Menu choose add question</a></li>
+            </ul>
+        </li>
+        <li class="logout"><a th:href="@{/logout}">Log out</a></li>
+    </ul>
+</th:block>
+
+</body>
+</html>

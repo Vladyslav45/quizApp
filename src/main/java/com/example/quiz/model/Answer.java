@@ -27,6 +27,9 @@ public class Answer implements Serializable {
     @Column
     private String inCorrectAnswer3;
 
+    @Column
+    private String describeAnswerIfChoiceWrong;
+
     @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "answer")
     @JsonIgnore
     private Question question;

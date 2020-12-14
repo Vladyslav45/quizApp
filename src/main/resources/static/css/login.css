@@ -20,6 +20,19 @@ html, body{
     padding: 42px 35px;
 }
 
+#error-log{
+    text-align: center;
+    color: red;
+}
+
+#success-logout{
+    text-align: center;
+    color: green;
+    font-family: bold, serif;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
 input.ggg{
     width: 100%;
     padding: 15px 0px 15px 15px;

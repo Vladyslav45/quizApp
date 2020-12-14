@@ -34,22 +34,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/",
+                .antMatchers( "/login",
                         "/singup","/forgot", "/reset", "/register", "/confirmActivated").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/")
+                .loginPage("/login")
                 .usernameParameter("email")
-                .defaultSuccessUrl("/home")
-                .failureUrl("/?error=true")
                 .passwordParameter("password")
+                .defaultSuccessUrl("/")
+                .failureUrl("/?error=true")
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/?logout")
+                .logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and()
                 .csrf().disable();

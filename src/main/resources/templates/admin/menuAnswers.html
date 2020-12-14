@@ -8,13 +8,16 @@
 </head>
 <body>
 
-<div>
-    <label>If you want to add one question</label>
-    <a th:href="@{addAnswers}">Add question</a>
+<div class="container">
+    <div class="info">
+        <label>If you want to add one question</label>
+        <a th:href="@{addAnswers}">Add question</a><br>
+    </div>
 
-    <label>If you want to add list questions, please take to file</label>
+
+    <label id="label">If you want to add list questions, please take to file</label>
     <form th:action="@{addFileAnswers}" method="post" enctype="multipart/form-data">
-        <input type="file" name="multipartFile" value="Upload file">
+        <input type="file" id="file" name="multipartFile" value="Upload file">
         <button type="submit">Add from file</button>
     </form>
 </div>

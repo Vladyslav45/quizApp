@@ -5,3 +5,111 @@ html, body{
     background: url(../img/bg.jpg) no-repeat 0px 0px;
     background-size:cover;
 }
+
+.container{
+    width: 30%;
+    margin:5em auto;
+    text-align: center;
+    background:rgba(171, 119, 157, 0.27);
+    padding: 42px 35px;
+}
+
+.container h1{
+    color: white;
+    font-family: bold, serif;
+    font-size: 17px;
+}
+
+.container form input{
+    width: 60%;
+    padding: 15px 0px 15px 15px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 10px;
+    background: none;
+}
+
+.container .select {
+    margin-left: 120px;
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: #2c3e50;
+    overflow: hidden;
+    border-radius: .25em;
+}
+
+.container .select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #34495e;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+}
+
+.container .select:hover::after {
+    color: #f39c12;
+}
+
+.container select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    font-size: 20px;
+    border: 0 !important;
+    background: #2c3e50;
+    background-image: none;
+}
+
+.container select::-ms-expand {
+    display: none;
+}
+
+.container select {
+    flex: 1;
+    padding: 0 .5em;
+    color: #fff;
+    font-family: bold, serif;
+    cursor: pointer;
+}
+
+.container form button{
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #f0bcb4;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.container form button:hover{
+    background-color: #f0bcb4
+}
+
+.container form button:active{
+    background-color: #f0bcb4;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+

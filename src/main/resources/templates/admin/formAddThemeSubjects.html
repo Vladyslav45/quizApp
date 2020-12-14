@@ -8,18 +8,18 @@
 </head>
 <body>
 
-<div>
+<div class="container">
     <form th:action="@{addThemeSubject}" th:object="${themeSubject}" method="post">
-        <input type="text" th:field="*{name}" maxlength="70" placeholder="Enter name theme subject" required autofocus><br>
-        <label>
-            Choose a subject
-            <select th:field="*{subject}">
-                <option value=""> --</option>
-                <option th:each="subject : ${subjectList}"
-                        th:value="${subject.id}"
-                        th:text="${subject.nameSubject}"></option>
-            </select>
-        </label>
+        <h1>Enter name theme subject</h1>
+        <input type="text" th:field="*{name}" maxlength="70" required autofocus><br>
+        <div class="select">
+                <select th:field="*{subject}">
+                    <option value="">Choose a subject</option>
+                    <option th:each="subject : ${subjectList}"
+                            th:value="${subject.id}"
+                            th:text="${subject.nameSubject}"></option>
+                </select>
+        </div>
         <button type="submit">Add</button>
     </form>
 </div>

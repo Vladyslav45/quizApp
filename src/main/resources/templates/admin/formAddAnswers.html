@@ -8,15 +8,14 @@
 </head>
 <body>
 
-<div>
+<div class="container">
     <form th:action="@{addAnswers}" th:object="${question}" method="post">
         <input type="text" th:field="*{nameQuestion}" maxlength="500" placeholder="Enter question" required autofocus><br>
         <input type="text" th:field="*{answer.correctAnswer}" maxlength="150" placeholder="Enter correct answer" required><br>
         <input type="text" th:field="*{answer.inCorrectAnswer1}" maxlength="150" placeholder="Enter incorrect answer" required><br>
         <input type="text" th:field="*{answer.inCorrectAnswer2}" maxlength="150" placeholder="Enter incorrect answer" required><br>
         <input type="text" th:field="*{answer.inCorrectAnswer3}" maxlength="150" placeholder="Enter incorrect answer" required><br>
-        <label>
-            Choose a theme subject
+        <div class="select">
             <select th:field="*{themeSubject}" required>
                 <optgroup th:each="subject : ${subjectList}" th:label="${subject.nameSubject}">
                     <option th:each="themeSubject : ${subject.themeSubjects}"
@@ -24,8 +23,7 @@
                             th:text="${themeSubject.name}"></option>
                 </optgroup>
             </select>
-        </label>
-
+        </div>
         <button type="submit">Add</button>
     </form>
 </div>
