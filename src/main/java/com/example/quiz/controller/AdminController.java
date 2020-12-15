@@ -60,7 +60,7 @@ public class AdminController {
     public String addFileAnswers(@RequestBody MultipartFile multipartFile, Model model){
         if (multipartFile.isEmpty()){
             model.addAttribute("messageerror", "File isn't found");
-            return "redirect:/answers";
+            return "errorFile";
         }
         iAdminPanelService.addListAnswers(multipartFile);
         return "redirect:/";

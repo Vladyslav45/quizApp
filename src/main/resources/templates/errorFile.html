@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/errorStyle.css" th:href="@{/css/errorStyle.css}">
+</head>
+<body>
+<div class="container">
+    <span id="error" th:if="${messageerror}" th:text="${messageerror}"></span>
+    <a th:href="@{/admin/answers}">Go to form add answers</a>
+</div>
+
+</body>
+</html>

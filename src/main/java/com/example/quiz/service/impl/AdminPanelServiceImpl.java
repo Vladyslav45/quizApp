@@ -92,11 +92,7 @@ public class AdminPanelServiceImpl implements IAdminPanelService {
                             answer.setInCorrectAnswer3(currentCell.getStringCellValue());
                             break;
                         case 5:
-                            if (currentCell.getStringCellValue() == null){
-                                answer.setDescribeAnswerIfChoiceWrong("None");
-                            } else {
-                                answer.setDescribeAnswerIfChoiceWrong(currentCell.getStringCellValue());
-                            }
+                            answer.setDescribeAnswerIfChoiceWrong(currentCell.getStringCellValue());
                             break;
                         case 6:
                             question.setThemeSubject(themeSubjectsRepository.findByName(currentCell.getStringCellValue()));
