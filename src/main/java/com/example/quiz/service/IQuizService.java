@@ -9,5 +9,5 @@ import java.util.List;
 public interface IQuizService {
     List<Subject> getAllSubjects();
     List<ThemeSubject> getAllBySubjectName(String subjectName);
-    List<Question> getRandomThreeTestsByThemeSubject(String themeSubject);
+    List<Question> getAnswersForTest(String themeSubject);
 }

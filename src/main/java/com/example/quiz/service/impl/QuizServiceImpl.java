@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 @Service
 public class QuizServiceImpl implements IQuizService {
@@ -36,21 +39,10 @@ public class QuizServiceImpl implements IQuizService {
         return themeSubjectsRepository.findAllBySubject_NameSubject(subjectName);
     }
 
-    //TODO make good random show questions
     @Override
-    public List<Question> getRandomThreeTestsByThemeSubject(String themeSubject) {
-        List<Question> getTests = new ArrayList<>();
+    public List<Question> getAnswersForTest(String themeSubject) {
         List<Question> questions = questionRepository.findAllQuestion(themeSubject);
-        while (getTests.size() != 2){
-            Question question = getRandomQuestion(questions);
-            if (getTests.stream().noneMatch(question::equals)){
-                getTests.add(question);
-            }
-        }
-        return getTests;
-    }
-
-    private Question getRandomQuestion(List<Question> questions){
-        return questions.get(ThreadLocalRandom.current().nextInt(questions.size()) % questions.size());
+        Collections.shuffle(questions, new Random());
+        return questions.stream().limit(4).collect(Collectors.toList());
     }
 }

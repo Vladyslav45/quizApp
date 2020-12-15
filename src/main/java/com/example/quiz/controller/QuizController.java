@@ -28,7 +28,7 @@ public class QuizController {
 
     @GetMapping(value = "/test/{theme}")
     public String showTest(@PathVariable String theme, Model model) {
-        List<Question> questions = IQuizService.getRandomThreeTestsByThemeSubject(theme);
+        List<Question> questions = IQuizService.getAnswersForTest(theme);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(questions);
