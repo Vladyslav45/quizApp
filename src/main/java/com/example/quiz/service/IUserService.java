@@ -3,7 +3,6 @@ package com.example.quiz.service;
 import com.example.quiz.model.ConfirmedTokenActivetedEmail;
 import com.example.quiz.model.User;
 
-import javax.servlet.http.HttpServletRequest;
 public interface IUserService {
     void save(User user);
     User findByEmail(String email);
@@ -13,5 +12,5 @@ public interface IUserService {
     ConfirmedTokenActivetedEmail findByConfirmToken(String confirmToken);
     void updateActive(ConfirmedTokenActivetedEmail confirmedTokenActivetedEmail);
     void updateTokenInUserForResetPassword(User user, String token);
-    void sendEmailWithResetToken(String userEmail, String resetToken, HttpServletRequest request);
+    void sendEmailWithResetToken(String userEmail, String resetToken, String url);
 }

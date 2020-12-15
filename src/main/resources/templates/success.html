@@ -3,11 +3,13 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../static/css/successStyle.css" th:href="@{/css/succesStyle.css}">
     <title>Title</title>
 </head>
 <body>
-<div th:text="${messageAccess}"></div>
-<div th:text="${messageError}"></div>
-<button th:href="@{/login}" >Go to login page</button>
+<div class="container">
+    <div id="success" th:text="${messageAccess}"></div>
+    <a th:href="@{/login}" >Go to login page</a>
+</div>
 </body>
 </html>

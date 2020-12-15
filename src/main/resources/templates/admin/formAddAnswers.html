@@ -15,6 +15,7 @@
         <input type="text" th:field="*{answer.inCorrectAnswer1}" maxlength="150" placeholder="Enter incorrect answer" required><br>
         <input type="text" th:field="*{answer.inCorrectAnswer2}" maxlength="150" placeholder="Enter incorrect answer" required><br>
         <input type="text" th:field="*{answer.inCorrectAnswer3}" maxlength="150" placeholder="Enter incorrect answer" required><br>
+        <input type="text" th:field="*{answer.describeAnswerIfChoiceWrong}" maxlength="150" placeholder="Enter describe why the answer was chosen wrong" required><br>
         <div class="select">
             <select th:field="*{themeSubject}" required>
                 <optgroup th:each="subject : ${subjectList}" th:label="${subject.nameSubject}">

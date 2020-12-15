@@ -84,7 +84,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void sendEmailWithResetToken(String userEmail, String resetToken, HttpServletRequest request) {
-        emailSender.sendResetPassword(userEmail, resetToken,request);
+    public void sendEmailWithResetToken(String userEmail, String resetToken, String url) {
+        emailSender.sendResetPassword(userEmail, resetToken,url);
     }
 }

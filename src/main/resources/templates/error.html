@@ -3,10 +3,16 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="../static/css/errorStyle.css" th:href="@{/css/errorStyle.css}">
     <title>Title</title>
 </head>
 <body>
-<span th:text="${messageError}"></span>
-<span th:text="${me}"></span>
+<div class="container">
+    <div id="error">
+        <span th:text="${messageError}"></span>
+        <span th:text="${me}"></span>
+    </div>
+    <a th:href="@{/login}" >Go to login page</a>
+</div>
 </body>
 </html>

@@ -99,7 +99,8 @@ public class UserController {
         } else {
             String token = UUID.randomUUID().toString();
             userService.updateTokenInUserForResetPassword(user, token);
-            userService.sendEmailWithResetToken(userEmail, token, request);
+            String appUrl = "test " + request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+            userService.sendEmailWithResetToken(userEmail, token, appUrl);
             model.addAttribute("successMessage", "Message send to " + userEmail);
         }
         return "emailCheckForm";

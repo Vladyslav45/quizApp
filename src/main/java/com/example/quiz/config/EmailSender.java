@@ -7,7 +7,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 
 @Component
 @RequiredArgsConstructor
@@ -30,13 +29,12 @@ public class EmailSender {
         javaMailSender.send(simpleMailMessage);
     }
 
-    public void sendResetPassword(String toEmail, String token, HttpServletRequest request){
+    public void sendResetPassword(String toEmail, String token, String url){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setSubject("Reset password");
         simpleMailMessage.setFrom(fromEmail);
         simpleMailMessage.setTo(toEmail);
-        simpleMailMessage.setText("reset password " + request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() +
-                "/reset?token=" + token);
+        simpleMailMessage.setText("reset password " + url + "/reset?token=" + token);
 
         javaMailSender.send(simpleMailMessage);
     }
