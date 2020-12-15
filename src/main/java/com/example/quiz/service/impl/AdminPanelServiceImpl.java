@@ -97,6 +97,7 @@ public class AdminPanelServiceImpl implements IAdminPanelService {
                             } else {
                                 answer.setDescribeAnswerIfChoiceWrong(currentCell.getStringCellValue());
                             }
+                            break;
                         case 6:
                             question.setThemeSubject(themeSubjectsRepository.findByName(currentCell.getStringCellValue()));
                             break;
