@@ -2,6 +2,7 @@ package com.example.quiz.service.impl;
 
 import com.example.quiz.config.EmailSender;
 import com.example.quiz.model.ConfirmedTokenActivetedEmail;
+import com.example.quiz.model.DTO.UserUpdateDTO;
 import com.example.quiz.model.Role;
 import com.example.quiz.model.User;
 import com.example.quiz.repository.ConfirmedTokenRepository;
@@ -11,8 +12,6 @@ import com.example.quiz.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -76,6 +75,7 @@ public class UserServiceImpl implements IUserService {
     public void updateActive(ConfirmedTokenActivetedEmail confirmedTokenActivetedEmail) {
         User user = userRepository.findByEmail(confirmedTokenActivetedEmail.getUser().getEmail());
         userRepository.updateActive(user.getId());
+        confirmedTokenRepository.deleteByUser(user);
     }
 
     @Override
@@ -86,5 +86,19 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void sendEmailWithResetToken(String userEmail, String resetToken, String url) {
         emailSender.sendResetPassword(userEmail, resetToken,url);
+    }
+
+    @Override
+    public void updateData(Long userId, UserUpdateDTO updateUser) {
+        userRepository.findById(userId).ifPresent(user -> {
+            user.setName(updateUser.getName());
+            user.setEmail(updateUser.getEmail());
+            userRepository.save(user);
+        });
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

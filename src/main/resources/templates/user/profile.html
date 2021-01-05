@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link href="/static/css/profile.css" th:href="@{/css/profile.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container">
+    <div>
+
+        <a id="edit" th:href="@{/update/{userId} (userId = ${user.id})}"><img th:src="@{../img/edit.png}" alt="Edit" src="/static/img/edit.png"></a>
+        <img id="user" th:src="@{../img/user.png}" alt="user"  src="/static/img/user.png"/>
+    </div>
+    <h1 id="name" th:text="${user.getName()}"></h1>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Theme</th>
+                <th>Result</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="historyquiz : ${user.getHistoryQuiz()}">
+                <td th:text="${historyquiz.getTheme()}"></td>
+                <td th:text="${historyquiz.getResult()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <a id="back" th:href="@{/}">Back</a>
+</div>
+</body>
+</html>

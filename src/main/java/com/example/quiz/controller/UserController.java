@@ -1,8 +1,10 @@
 package com.example.quiz.controller;
 
 import com.example.quiz.model.ConfirmedTokenActivetedEmail;
+import com.example.quiz.model.DTO.UserUpdateDTO;
 import com.example.quiz.model.Subject;
 import com.example.quiz.model.User;
+import com.example.quiz.service.IHistoryService;
 import com.example.quiz.service.IQuizService;
 import com.example.quiz.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class UserController {
 
     @Autowired
     private IQuizService IQuizService;
+
+    @Autowired
+    private IHistoryService iHistoryService;
 
     @GetMapping(value = "/login")
     public String login(@RequestParam(value = "error", required = false) String error,
@@ -64,11 +69,9 @@ public class UserController {
     @GetMapping(value = "/")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public String homePage(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByEmail(authentication.getName());
         List<Subject> subjects = IQuizService.getAllSubjects();
 
-        model.addAttribute("userName", user.getName());
+        model.addAttribute("userName", getAuthenticationUser().getName());
         model.addAttribute("subjects", subjects);
         return "main/homePage";
     }
@@ -124,5 +127,37 @@ public class UserController {
     public String resetPassword(@RequestParam String password, @RequestParam("token") String token){
         userService.changePassword(password, userService.findByResetToken(token));
         return "redirect:/login";
+    }
+
+    @GetMapping(value = "/profile")
+    public String profile(Model model){
+
+        model.addAttribute("user", getAuthenticationUser());
+        return "user/profile";
+    }
+
+    @PostMapping(value = "/saveHistory")
+    public String save(@RequestParam(value = "theme") String theme, @RequestParam(value = "result") String result){
+        iHistoryService.save(theme, result, getAuthenticationUser());
+        return "quizForm :: frag";
+    }
+
+
+    @GetMapping(value = "/update/{userId}")
+    public String update(@PathVariable("userId") Long userId, Model model){
+        User user = userService.findById(userId);
+        model.addAttribute("user", user);
+        return "user/updateForm";
+    }
+
+    @PostMapping(value = "/update/{userId}")
+    public String update(@PathVariable("userId") Long userId, @ModelAttribute UserUpdateDTO user){
+        userService.updateData(userId,user);
+        return "redirect:/profile";
+    }
+
+    private User getAuthenticationUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return userService.findByEmail(authentication.getName());
     }
 }

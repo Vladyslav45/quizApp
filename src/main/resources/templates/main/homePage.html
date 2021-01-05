@@ -23,7 +23,10 @@
     <div class="user" sec:authorize="hasAuthority('USER')">
         <div class="info">
             <h1 th:text="'Hello, ' + ${userName}"></h1>
-            <a id="logout" th:href="@{/logout}">Log out</a><br>
+           <div class="profile">
+               <a th:href="@{/profile}"><img alt="Profile" src="/static/img/userprof.png" th:src="@{../img/userprof.png}"></a>
+               <a id="logout" th:href="@{/logout}">Log out</a><br>
+           </div>
         </div>
         <div id="board">
             <div id="subjects" th:each="subject : ${subjects}">

@@ -15,7 +15,7 @@ html, body{
     margin: 20px auto;
     box-sizing: border-box;
     width:400px;
-    height:400px;
+    height:270px;
     display:grid;
     grid-template-columns: 200px 200px 200px;
     grid-column-gap: 20px;
@@ -84,7 +84,14 @@ html, body{
     text-shadow: .03em .03em 0 hsla(230,40%,50%,1);
 }
 
-.info a {
+.profile{
+    margin-left: 15px;
+    width: 120px;
+    height: auto;
+    float: right;
+}
+
+.profile #logout {
     padding-right: 10px;
     font-size: 20px;
     float: right;
@@ -93,8 +100,8 @@ html, body{
     color: white;
 }
 
-.info a:hover {
-   font-size: 160%;
+.profile #logout:hover {
+   font-size: 120%;
 
 }
 

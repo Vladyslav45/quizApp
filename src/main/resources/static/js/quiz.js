@@ -64,9 +64,9 @@
                     $('#next').show();
                 }
             } else {
-                let scoreRslt = displayResult();+
+                let scoreRslt = displayResult();
                 quizSpace.append(scoreRslt).fadeIn();
-                $('#prev').hide();
+                $('#next').hide();
             }
         });
     }
@@ -90,6 +90,18 @@
             result.append(answers).append('<br>');
         }
         result.append('You scored ' + correct + ' out of ' + arrayQuestions.length);
+        save(correct);
         return result;
     }
+
+    // function save(correct) {
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/saveHistory',
+    //         data: {
+    //             theme: nameTheme,
+    //             result: correct + " / " + arrayQuestions.length
+    //         }
+    //     })
+    // }
 })();

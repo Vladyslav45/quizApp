@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/update.css" th:href="@{/css/update.css}">
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/update/{userId} (userId = ${user.id})}" th:object="${user}" method="post">
+
+            <label>Your name</label>
+            <input type="text" name="name" placeholder="Name" autofocus th:field="*{name}" required><br>
+
+            <label>Your email</label>
+            <input type="email" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" th:field="*{email}" required>
+        <div>
+            <button onclick="back()">Back</button>
+            <button type="submit">Edit</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function back() {
+        window.history.back()
+    }
+</script>
+</body>
+</html>
